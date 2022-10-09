@@ -1,14 +1,15 @@
 import React ,{useContext,useState}from 'react'
 import NoteContext from "../Context/notes/NoteContext";
 
-const AddNote = () => {
+const AddNote = (props) => {
   const context=useContext(NoteContext);
   const{addnote}=context;
   const [note,setnote]=useState({title:"",description:"",tags:""})
   const handleClick=(e)=>{
     e.preventDefault()
-    addnote(note.title,note.tags,note.description);
+    addnote(note.title,note.description,note.tags);
     setnote({title:"",description:"",tags:""})
+    props.showalert("Note added successfully","success")
   }
   const onChange=(e)=>{
     setnote({...note,[e.target.name]:e.target.value})
@@ -28,9 +29,9 @@ const AddNote = () => {
   </div>
   <div className="mb-3">
     <label htmlFor="tag" className="form-label">Tags</label>
-    <input type="text" className="form-control" id="tag" value={note.tags} name="tag" onChange={onChange} minLength={5} required/>
+    <input type="text" className="form-control" id="tags" value={note.tags} name="tags" onChange={onChange}/>
   </div>
-  <button disabled={note.title.length<5||note.title.description<5} type="submit" className="btn btn-primary"onClick={handleClick}>Submit</button>
+  <button disabled={note.title.length<5||note.description.length<5} type="submit" className="btn btn-primary"onClick={handleClick}>Submit</button>
 </form>
 </div>
     </div>

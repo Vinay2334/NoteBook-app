@@ -19,7 +19,7 @@ const NoteState = (props) => {
         setnotes(json)
     }
     const addnote=async(title,description,tags)=>{
-      const response=await fetch(`${host}/api/notes/addnotes`,{
+      const response=await fetch(`${host}/api/notes/addnote`,{
         method:'POST',
         headers:{
           'Content-Type': 'application/json',
@@ -28,6 +28,7 @@ const NoteState = (props) => {
         body: JSON.stringify({title,description,tags})
         });
       const note=await response.json()
+      console.log(note)
       setnotes(notes.concat(note))
     }
     const deletenote=async (id)=>{

@@ -7,10 +7,12 @@ import Noteitem from './Noteitem';
 const Notes = (props) => {
   const context=useContext(NoteContext);
   const{notes,getnotes,editnote}=context;
+  const {showalert}=props
   let history=useNavigate();
   useEffect(() => {
     if(localStorage.getItem('token')){
     getnotes()
+    console.log("Token"+localStorage.getItem('token'))
     }
     else{
       history("/login")
@@ -23,7 +25,7 @@ const Notes = (props) => {
   
   const updatenote=(currentNote)=>{
     ref.current.click()
-    setnote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etags:currentNote.tags})
+    setnote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag:currentNote.tag})
   }
   const handleClick = (e)=>{ 
     editnote(note.id, note.etitle, note.edescription, note.etag)
@@ -36,7 +38,7 @@ const onChange = (e)=>{
 }
   return (
     <>
-    <AddNote/>
+    <AddNote showalert={showalert}/>
     <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">Launch demo modal</button>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">

@@ -6,7 +6,6 @@ const Navbar = () => {
   let location =useLocation();
   let history=useNavigate();
   useEffect(()=>{
-    console.log(location);
   },[location])
   const handleLogout=()=>{
     localStorage.removeItem('token')
@@ -29,10 +28,11 @@ const Navbar = () => {
           <Link className={`nav-link ${location.pathname==="/about"? "active":""} `} to="/about">About</Link>
         </li>
       </ul>
-      {!localStorage.getItem('token')}?
+      {!localStorage.getItem('token')?(<>
         <Link className="btn btn-primary mx-2" to='/login' role="button">Login</Link>
         <Link className="btn btn-primary mx-2" to='/signup' role="button">Sign Up</Link>
-        :<button className='btn btn-primary'onClick={handleLogout}>Log Out</button>
+        </>)
+        :(<button className='btn btn-primary'onClick={handleLogout}>Log Out</button>)}
     </div>
   </div>
 </nav>
